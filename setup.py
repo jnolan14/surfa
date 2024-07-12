@@ -4,7 +4,6 @@ import re
 import pathlib
 
 from setuptools import setup
-from setuptools import dist
 from setuptools.extension import Extension
 
 
@@ -51,7 +50,7 @@ if cython_build:
 
 # since we interface the c stuff with numpy, it's another hard
 # requirement at build-time
-import numpy as np
+import numpy as np  # noqa: E402
 include_dirs = [np.get_include()]
 
 # extract the current version
@@ -83,7 +82,7 @@ setup(
     packages=packages,
     ext_modules=extensions,
     include_dirs=include_dirs,
-    package_data={'': ['*.pyx'], '': ['*.h']},
+    package_data={'': ['*.pyx'], '': ['*.h']},  # noqa: F601
     install_requires=requirements,
     classifiers=[
         'Development Status :: 3 - Alpha',
