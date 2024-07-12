@@ -1,4 +1,3 @@
-import os
 import warnings
 import numpy as np
 
@@ -20,8 +19,6 @@ from surfa.transform.geometry import cast_image_geometry
 from surfa.transform.geometry import image_geometry_equal
 from surfa.transform import orientation as otn
 from surfa.transform.affine import Affine
-from surfa.transform.affine import cast_affine
-from surfa.transform.affine import center_to_corner_rotation
 from surfa.image.interp import interpolate
 
 
@@ -468,7 +465,7 @@ class FramedImage(FramedArray):
             return self.copy() if copy else self
 
         # extract world axes
-        get_world_axes = lambda aff: np.argmax(np.absolute(np.linalg.inv(aff)), axis=0)
+        get_world_axes = lambda aff: np.argmax(np.absolute(np.linalg.inv(aff)), axis=0) # noqa: E731
         trg_matrix = otn.orientation_to_rotation_matrix(trg_orientation)
         src_matrix = otn.orientation_to_rotation_matrix(src_orientation)
         world_axes_trg = get_world_axes(trg_matrix[:self.basedim, :self.basedim])
@@ -805,7 +802,7 @@ class FramedImage(FramedArray):
         sdt : !class
         """
         sampling = self.geom.voxsize[:self.basedim]
-        dt = lambda x: scipy.ndimage.distance_transform_edt(1 - x, sampling=sampling)
+        dt = lambda x: scipy.ndimage.distance_transform_edt(1 - x, sampling=sampling)   # noqa: E731
         return stack([self.new(dt(self.framed_data[..., i])) for i in range(self.nframes)])
 
     def signed_distance(self):
@@ -822,8 +819,8 @@ class FramedImage(FramedArray):
         sdt : !class
         """
         sampling = self.geom.voxsize[:self.basedim]
-        dt = lambda x: scipy.ndimage.distance_transform_edt(x, sampling=sampling)
-        sdt = lambda x: dt(1 - x) - dt(x)
+        dt = lambda x: scipy.ndimage.distance_transform_edt(x, sampling=sampling)   # noqa: E731
+        sdt = lambda x: dt(1 - x) - dt(x)   # noqa: E731
         return stack([self.new(sdt(self.framed_data[..., i])) for i in range(self.nframes)])
 
 
