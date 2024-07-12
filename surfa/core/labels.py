@@ -29,13 +29,13 @@ def dice(a, b, labels=None):
         labels = np.delete(labels, np.where(labels == 0))
 
     result = {}
-    for l in labels:
-        mask1 = a == l
-        mask2 = b == l
+    for label in labels:
+        mask1 = a == label
+        mask2 = b == label
         top = 2.0 * np.logical_and(mask1, mask2).sum()
         bottom = np.sum(mask1) + np.sum(mask2)
         if bottom != 0:
-            result[l] = top / bottom
+            result[label] = top / bottom
     
     return result
 
@@ -65,13 +65,13 @@ def jaccard(a, b, labels=None):
         labels = np.delete(labels, np.where(labels == 0))
     
     result = {}
-    for l in labels:
-        mask1 = a == l
-        mask2 = b == l
+    for label in labels:
+        mask1 = a == label
+        mask2 = b == label
         top = np.logical_and(mask1, mask2).sum()
         bottom = np.logical_or(mask1, mask2).sum()
         if bottom != 0:
-            result[l] = top / bottom
+            result[label] = top / bottom
     
     return result
 
