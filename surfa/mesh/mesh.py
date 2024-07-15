@@ -1,4 +1,3 @@
-import os
 import warnings
 import numpy as np
 from copy import deepcopy
@@ -10,7 +9,6 @@ from surfa.core.array import normalize
 from surfa.core.array import make_writeable
 from surfa.mesh.cache import cached_mesh_property
 from surfa.mesh.overlay import cast_overlay
-from surfa.mesh.overlay import Overlay
 from surfa.mesh.sphere import mesh_is_sphere
 from surfa.mesh.intersection import triangle_intersections
 from surfa.transform import ImageGeometry
