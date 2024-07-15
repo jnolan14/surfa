@@ -4,7 +4,6 @@ from surfa.io import utils as iou
 from surfa.core.labels import LabelLookup
 from surfa.transform.geometry import ImageGeometry
 from surfa.transform.geometry import cast_image_geometry
-from surfa.mesh import Overlay
 
 
 # FreeSurfer tag ID lookup
@@ -120,8 +119,8 @@ def read_binary_lookup_table(file):
     LabelLookup
         Labels read from file.
     """
-    version = iou.read_bytes(file, '>i4')
-    max_id = iou.read_bytes(file, '>i4')
+    version = iou.read_bytes(file, '>i4') # noqa: F841
+    max_id = iou.read_bytes(file, '>i4') # noqa: F841
     file_name_size = iou.read_bytes(file, '>i4')
     # if the file comes from surfa.io.fsio.write_binary_lookup_table(), file_name_size = 0.
     # if the file comes from freesurfer/utils/colortab.cpp::znzCTABwriteIntoBinaryV2(), file_name_size > 0.
@@ -254,5 +253,5 @@ def load_surface_label(filename):
     """
     with open(filename) as f:
         lines = f.read().splitlines()[2:]
-    vertices = np.array([int(l.split()[0]) for l in lines])
+    vertices = np.array([int(line.split()[0]) for line in lines])
     return vertices
