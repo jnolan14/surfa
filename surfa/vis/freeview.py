@@ -1,7 +1,6 @@
 import os
 import shutil
 import tempfile
-import numpy as np
 
 from surfa import Mesh
 from surfa.system import run
@@ -206,7 +205,7 @@ class FreeviewOverlay:
 
     def tags(self):
         tags = ''
-        tags += '' if self.threshold is None else f':overlay_threshold=' + ','.join(str(x) for x in config.threshold)
+        tags += '' if self.threshold is None else ':overlay_threshold=' + ','.join(str(x) for x in self.threshold)
         tags += '' if self.opacity is None else f':overlay_opacity={self.opacity}'
         return tags
 
@@ -263,7 +262,7 @@ def _find_vgl():
     """
     Locate the VGL wrapper if installed.
     """
-    have_key = os.path.isfile('/etc/opt/VirtualGL/vgl_xauth_key')
+    # have_key = os.path.isfile('/etc/opt/VirtualGL/vgl_xauth_key')
     vgl_path = shutil.which('vglrun')
     if vgl_path is None:
         vgl_path = shutil.which('vglrun', path='/usr/pubsw/bin')
