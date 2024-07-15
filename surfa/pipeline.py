@@ -1,7 +1,6 @@
 import os
 import sys
 import datetime
-import argparse
 import platform
 import getpass
 import surfa as sf
@@ -100,7 +99,7 @@ class CommandPipeline:
         """
         Exit the pipeline successfully.
         """
-        dt = self.total_time_str()
+        # dt = self.total_time_str()
         if self._scanning_for_outdated:
             self._print_message('EXIT', 'Everything up-to-date', 'green')
         else:
