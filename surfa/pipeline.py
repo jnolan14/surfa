@@ -110,7 +110,7 @@ class CommandPipeline:
         """
         Through an error and exit the pipeline.
         """
-        dt = self.total_time_str()
+        # dt = self.total_time_str()
         if message is None:
             self._print_message('ERROR', 'Fatal error', 'red')
         else:
