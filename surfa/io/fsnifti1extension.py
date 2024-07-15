@@ -1,12 +1,7 @@
-import os
-import gzip
-import warnings
 import numpy as np
 
 from surfa.io import fsio
 from surfa.io import utils as iou
-from surfa.transform.geometry import ImageGeometry
-from surfa.core.labels import LabelLookup
 from surfa.core.framed import FramedArrayIntents
 
 
@@ -130,7 +125,7 @@ class FSNifti1Extension:
             tagdatalen -= (len_tagheader + length)
             if (tagdatalen < len_tagheader):
                 print(f'[DEBUG] FSNifti1Extension.read(): remaining taglen = {tagdatalen:6d}')
-                break;
+                break
 
         return self.content
 
