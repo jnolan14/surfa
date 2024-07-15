@@ -289,7 +289,7 @@ class ImageGeometry:
         """
         Affine transform that maps world to voxel (image) coordinates.
         """
-        func = lambda : self.vox2world.inv()
+        func = lambda : self.vox2world.inv() # noqa: E731
         return self._retrieve_or_compute_affine('wv', func)
 
     @world2vox.setter
@@ -315,7 +315,7 @@ class ImageGeometry:
         """
         Affine transform that maps world to surface coordinates.
         """
-        func = lambda : self.vox2surf @ self.world2vox
+        func = lambda : self.vox2surf @ self.world2vox # noqa: E731
         return self._retrieve_or_compute_affine('ws', func)
 
     @property
@@ -323,7 +323,7 @@ class ImageGeometry:
         """
         Affine transform that maps surface to voxel (image) coordinates.
         """
-        func = lambda : self.vox2surf.inv()
+        func = lambda : self.vox2surf.inv() # noqa: E731
         return self._retrieve_or_compute_affine('sv', func)
 
     @property
@@ -331,7 +331,7 @@ class ImageGeometry:
         """
         Affine transform that maps surface to world coordinates.
         """
-        func = lambda : self.vox2world @ self.surf2vox
+        func = lambda : self.vox2world @ self.surf2vox # noqa: E731
         return self._retrieve_or_compute_affine('sw', func)
 
     @property
