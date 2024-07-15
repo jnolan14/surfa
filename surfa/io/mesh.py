@@ -5,8 +5,6 @@ from surfa import Mesh
 from surfa.transform import ImageGeometry
 from surfa.io import fsio
 from surfa.io import protocol
-from surfa.io.utils import read_bytes
-from surfa.io.utils import write_bytes
 from surfa.io.utils import read_int
 from surfa.io.utils import write_int
 from surfa.io.utils import check_file_readability
