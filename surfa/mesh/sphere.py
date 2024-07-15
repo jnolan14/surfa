@@ -147,7 +147,7 @@ def barycentric_spherical_map(source, target, neighborhood=10):
     intersecting_faces = np.full(target.nvertices, -1, dtype=np.int64)
     intersecting_barycenters = np.zeros((target.nvertices, 3), dtype=np.float64)
 
-    dot = lambda a, b: np.dot(a * b, [1.0] * a.shape[1])
+    dot = lambda a, b: np.dot(a * b, [1.0] * a.shape[1]) # noqa: E731
     tolerance = np.finfo(np.float64).resolution * 100
 
     # iterate over the nearest triangles, in order of increasing distance
