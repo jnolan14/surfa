@@ -1,4 +1,3 @@
-import os
 import warnings
 import gzip
 import numpy as np
@@ -8,7 +7,6 @@ from surfa import Slice
 from surfa import Overlay
 from surfa import Warp
 from surfa.core.array import pad_vector_length
-from surfa.core.framed import FramedArray
 from surfa.core.framed import FramedArrayIntents
 from surfa.image.framed import FramedImage
 from surfa.io import fsio
@@ -264,7 +262,7 @@ class MGHArrayIO(protocol.IOProtocol):
             # read shape and type info
             shape = read_bytes(file, '>u4', 4)
             dtype_id = read_bytes(file, '>u4')
-            dof = read_bytes(file, '>u4')
+            dof = read_bytes(file, '>u4') # noqa: F841
 
             # read geometry
             geom_params = {}
@@ -377,9 +375,9 @@ class MGHArrayIO(protocol.IOProtocol):
 
         # determine whether to write compressed data
         if str(filename).lower().endswith('gz'):
-            fopen = lambda f: gzip.open(f, 'wb', compresslevel=6)
+            fopen = lambda f: gzip.open(f, 'wb', compresslevel=6) # noqa: E731
         else:
-            fopen = lambda f: open(f, 'wb')
+            fopen = lambda f: open(f, 'wb') # noqa: E731
 
         with fopen(filename) as file:
 
@@ -669,7 +667,7 @@ class NiftiArrayIO(protocol.IOProtocol):
 
             # write freesurfer header extension data to buffer
             fsext = FSNifti1Extension()
-            esize = fsext.write(bytes_writer, fsextcontent)
+            esize = fsext.write(bytes_writer, fsextcontent) # noqa: F841
             
             # convert FSNifti1Extension.Content to bytes
             fsext_bytesdata = bytes_writer.getvalue()
@@ -767,7 +765,7 @@ class FreeSurferAnnotationIO(protocol.IOProtocol):
             Target file path.
         """
         if not isinstance(arr, Overlay):
-            raise ValueError(f'can only save 1D overlays as annotations, but got array type {typle(arr)}')
+            raise ValueError(f'can only save 1D overlays as annotations, but got array type {type(arr)}')
 
         if not np.issubdtype(arr.dtype, np.integer):
             raise ValueError(f'annotations must have integer dtype, but overlay has dtype {arr.dtype}')
@@ -784,7 +782,7 @@ class FreeSurferAnnotationIO(protocol.IOProtocol):
         cleaned = arr.data[np.logical_not(unknown_mask)]
         found = np.in1d(cleaned, list(arr.labels.keys()))
         if not np.all(found):
-            missing = list(np.unique(cleaned[found == False]))
+            missing = list(np.unique(cleaned[found == False])) # noqa: E712
             raise ValueError('cannot save overlay as annotation because it contains the following values '
                             f'that do not exist in its label lookup: {missing}')
 
@@ -838,7 +836,7 @@ class FreeSurferCurveIO(protocol.IOProtocol):
         if atype is not Overlay:
             raise ValueError('curve files can only be loaded as 1D overlays')
         with open(filename, 'rb') as file:
-            magic = read_int(file, size=3)
+            magic = read_int(file, size=3) # noqa: F841
             nvertices = read_bytes(file, '>i4')
             read_bytes(file, '>i4')
             read_bytes(file, '>i4')
