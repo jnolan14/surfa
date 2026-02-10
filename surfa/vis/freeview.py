@@ -341,8 +341,9 @@ def _find_vgl():
     # test for egl support
     has_egl = os.path.isfile('/opt/VirtualGL/bin/eglinfo')
     vgl_path = shutil.which('vglrun')
-    if vgl_path is None:
-        vgl_path = shutil.which('vglrun', path='/usr/pubsw/bin')
+    # removed to test issue on MLSC
+    #if vgl_path is None:
+    #    vgl_path = shutil.which('vglrun', path='/usr/pubsw/bin')
     if vgl_path is None:
         return None
     islocal = any([os.environ.get('DISPLAY', '').endswith(string) for string in (':0', ':0.0')])
