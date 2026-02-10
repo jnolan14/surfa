@@ -26,3 +26,16 @@ repair-wheel-command = [
   "delvewheel repair -w {dest_dir} {wheel}",
   "bash tools/audit_wheel.sh {wheel}",
 ]
+
+[project]
+name = "surfa"
+dynamic = ["version", "dependencies", "readme", "authors", "description", "license", "requires-python", "classifiers"]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-xdist>=3.0.0",
+    "pytest-html>=3.1.0",
+    "numpy>=1.20.0",
+]
