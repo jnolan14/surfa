@@ -1,0 +1,86 @@
+# ============================================================================
+# Coverage.py Configuration File
+# ============================================================================
+
+[run]
+
+source = surfa
+
+omit = 
+    */test/*
+    */tests/*
+    */__pycache__/*
+    */site-packages/*
+    */venv/*
+    */virtualenv/*
+    */.venv/*
+    */setup.py
+    */conftest.py
+
+branch = True
+
+parallel = True
+
+data_file = .coverage
+
+
+[report]
+
+precision = 2
+
+show_missing = True
+
+skip_covered = False
+
+skip_empty = True
+
+# fail_under = 70
+
+exclude_lines =
+
+    pragma: no cover
+    # TODO: look at the logic in any of these defininitions in classes, might want to test
+    def __repr__
+    def __str__
+
+    raise AssertionError
+    raise NotImplementedError
+
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    if typing.TYPE_CHECKING:
+
+    @abstractmethod
+    @abc.abstractmethod
+    @typing.runtime_checkable
+    @runtime_checkable
+
+    pass
+    \.\.\.
+
+ignore_errors = False
+
+
+[html]
+
+directory = htmlcov
+title = Surfa Test Coverage Report
+
+
+[xml]
+
+output = coverage.xml
+
+
+[json]
+
+output = coverage.json
+
+show_contexts = True
+
+
+[paths]
+
+source =
+    surfa/
+    */site-packages/surfa/
