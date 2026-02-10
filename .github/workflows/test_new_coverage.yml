@@ -39,7 +39,7 @@ jobs:
     
     - name: Run unit tests with coverage
       run: |
-        pytest test/ -m "unit" -v --cov=surfa --cov-report=xml --cov-report=term-missing -n auto
+        pytest test/ -v --cov=surfa --cov-report=xml --cov-report=term-missing -n auto
     
     - name: Upload coverage to Codecov
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
