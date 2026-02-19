@@ -19,7 +19,7 @@ def conform_ndim(arr, ndim):
     """
     arr = np.asarray(arr)
     if arr.ndim > ndim:
-        raise ValueError(f'cannot conform array of shape {arr.shape} to {ndmi}D')
+        raise ValueError(f'cannot conform array of shape {arr.shape} to {ndim}D')
     for _ in range(ndim - arr.ndim):
         arr = np.expand_dims(arr, axis=-1)
     return arr
@@ -86,22 +86,27 @@ def check_array(arr, dtype=None, ndim=None, shape=None, name=None):
             return ', '.join(map(str, lst[:-1])) + ', or ' + str(lst[-1])
 
     if dtype is not None:
-        dtypes = [dtype] if np.isscalar(dtype) else dtype
-        if not any(np.issubdtype(dt, arr.dtype) for dt in dtypes):
+        # check if dtype is a single type or iterable, always convert to iterable
+        dtypes = dtype if isinstance(dtype, (list, tuple)) else (dtype,)
+        if not any(np.issubdtype(arr.dtype, dt) for dt in dtypes):
             reqs = list_string(dtypes)
             raise ValueError(f'{name} must have dtype {reqs}, but got {arr.dtype}')
 
     if ndim is not None:
-        ndims = [ndim] if np.isscalar(ndim) else ndim
+        ndims = ndim if isinstance(ndim, (list, tuple)) else (ndim,)
         if not any(nd == arr.ndim for nd in ndims):
             reqs = list_string(ndims)
             raise ValueError(f'{name} must be {reqs} dimensional, but got {arr.ndim} ndims')
 
     if shape is not None:
+        if not isinstance(shape, list) or (len(shape) > 0 and not isinstance(shape[0], (list, tuple))):
+            shapes = [tuple(shape) if not isinstance(shape, tuple) else shape]
+        else:
+            shapes = [tuple(s) for s in shape]
+        
         if np.isscalar(shape):
             shape = [shape]
-        shapes = [shape] if np.isscalar(shape[0]) else shape
-        shapes = [tuple(s) for s in shapes]
+
         if not any(s == arr.shape for s in shapes):
             reqs = list_string(shapes)
             raise ValueError(f'{name} must have shape {reqs}, but got shape {arr.shape}')
